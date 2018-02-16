@@ -1,9 +1,22 @@
 #include "AppClass.h"
+
+int loc[8][11] =
+{
+0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 0,
+1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1,
+1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1,
+1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
+0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0,
+0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0,
+0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0,
+0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0
+};
+
 void Application::InitVariables(void)
 {
 	//Make MyMesh object
 	m_pMesh = new MyMesh();
-	m_pMesh->GenerateCube(0.5f, C_BROWN);
+	m_pMesh->GenerateCube(1.0f, C_BROWN);
 
 	//Make MyMesh object
 	m_pMesh1 = new MyMesh();
@@ -27,59 +40,14 @@ void Application::Display(void)
 
 	static float fPos = 0.0f;
 
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3( fPos, 0.0f, 0.0f)));		// row 1
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(fPos + 0.5f, 0.0f, 0.0f)));
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(fPos + 1.5f, 0.0f, 0.0f)));
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(fPos + 2.0f, 0.0f, 0.0f)));
-
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(fPos - 1.5f, 0.5f, 0.0f)));		// row 2
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(fPos - 0.5f, 0.5f, 0.0f)));
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(fPos + 2.5f, 0.5f, 0.0f)));
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(fPos + 3.5f, 0.5f, 0.0f)));
-
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(fPos - 1.5f, 1.0f, 0.0f)));		// row 3
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(fPos - 0.5f, 1.0f, 0.0f)));
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(fPos, 1.0f, 0.0f)));
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(fPos + 0.5f, 1.0f, 0.0f)));
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(fPos + 1.0f, 1.0f, 0.0f)));		
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(fPos + 1.5f, 1.0f, 0.0f)));
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(fPos + 2.0f, 1.0f, 0.0f)));
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(fPos + 2.5f, 1.0f, 0.0f)));
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(fPos + 3.5f, 1.0f, 0.0f)));
-
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(fPos - 1.5f, 1.5f, 0.0f)));		// row 4
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(fPos - 1.0f, 1.5f, 0.0f)));
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(fPos - 0.5f, 1.5f, 0.0f)));
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(fPos, 1.5f, 0.0f)));
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(fPos + 0.5f, 1.5f, 0.0f)));
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(fPos + 1.0f, 1.5f, 0.0f)));
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(fPos + 1.5f, 1.5f, 0.0f)));
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(fPos + 2.0f, 1.5f, 0.0f)));
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(fPos + 2.5f, 1.5f, 0.0f)));
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(fPos + 3.0f, 1.0f, 0.0f)));
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(fPos + 3.5f, 1.5f, 0.0f)));
-
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(fPos - 1.0f, 2.0f, 0.0f)));		// row 5
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(fPos - 0.5f, 2.0f, 0.0f)));
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(fPos + 0.5f, 2.0f, 0.0f)));
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(fPos + 1.0f, 2.0f, 0.0f)));
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(fPos + 1.5f, 2.0f, 0.0f)));
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(fPos + 2.5f, 2.0f, 0.0f)));
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(fPos + 3.0f, 2.0f, 0.0f)));
-
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(fPos - 0.5f, 2.5f, 0.0f)));		// row 6
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(fPos, 2.5f, 0.0f)));
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(fPos + 0.5f, 2.5f, 0.0f)));
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(fPos + 1.0f, 2.5f, 0.0f)));
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(fPos + 1.5f, 2.5f, 0.0f)));
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(fPos + 2.0f, 2.5f, 0.0f)));
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(fPos + 2.5f, 2.5f, 0.0f)));
-
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(fPos, 3.0f, 0.0f)));		// row 7
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(fPos + 2.0f, 3.0f, 0.0f)));
-
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(fPos - 0.5f, 3.5f, 0.0f)));		// row 8
-	m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(fPos + 2.5f, 3.5f, 0.0f)));
+	for (int i = 0; i < 11; i++)
+	{
+		for (int j = 0; j < 8; j++)
+		{
+			if (loc[j][i] == 1)
+				m_pMesh->Render(m_pCameraMngr->GetProjectionMatrix(), m_pCameraMngr->GetViewMatrix(), glm::translate(vector3(1.0f * i + 16 * sin(fPos) * sin(fPos) * sin(fPos), 1.0f * j + 13 * cos(fPos), 0.0f)));
+		}
+	}
 
 	fPos += 0.05f;
 		
