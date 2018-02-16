@@ -1,4 +1,5 @@
 #include "MyMesh.h"
+#include <math.h>
 void MyMesh::Init(void)
 {
 	m_bBinded = false;
@@ -275,8 +276,24 @@ void MyMesh::GenerateCone(float a_fRadius, float a_fHeight, int a_nSubdivisions,
 	Release();
 	Init();
 
+	std::vector<vector3> vec;
+
 	// Replace this with your code
-	GenerateCube(a_fRadius * 2.0f, a_v3Color);
+	float intervals = 2 * 3.14 * a_fRadius / a_nSubdivisions;
+
+	for (int i = 0; i < a_nSubdivisions; i++)
+	{
+		vec.push_back(vector3(a_nSubdivisions * i, 0, 0));
+	}
+
+	vec.push_back(vector3(a_fRadius, a_fHeight, 0));
+
+	for (int i = 0; i < a_nSubdivisions - 1; i++)
+	{
+		AddTri(vector3(a_fRadius * cos(i), a_fRadius * sin(i), 0), vector3(a_fRadius * cos(i + 1), a_fRadius * sin(i + 1), 0), vector3(0, 0, a_fHeight));
+		AddTri(vector3(a_fRadius * cos(i), a_fRadius * sin(i), 0), vector3(a_fRadius * cos(i + 1), a_fRadius * sin(i + 1), 0), vector3(0, 0, 0));
+	}
+
 	// -------------------------------
 
 	// Adding information about color
