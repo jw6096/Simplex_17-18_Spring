@@ -279,7 +279,7 @@ void MyMesh::GenerateCone(float a_fRadius, float a_fHeight, int a_nSubdivisions,
 	std::vector<vector3> vec;
 
 	// Replace this with your code
-	float intervals = 2 * 3.14 * a_fRadius / a_nSubdivisions;
+	float intervals =  (360 / a_nSubdivisions) * (3.14 / 180);
 
 	for (int i = 0; i < a_nSubdivisions; i++)
 	{
@@ -288,10 +288,21 @@ void MyMesh::GenerateCone(float a_fRadius, float a_fHeight, int a_nSubdivisions,
 
 	vec.push_back(vector3(a_fRadius, a_fHeight, 0));
 
-	for (int i = 0; i < a_nSubdivisions - 1; i++)
+	for (int i = 0; i < a_nSubdivisions; i++)
 	{
-		AddTri(vector3(a_fRadius * cos(i), a_fRadius * sin(i), 0), vector3(a_fRadius * cos(i + 1), a_fRadius * sin(i + 1), 0), vector3(0, 0, a_fHeight));
-		AddTri(vector3(a_fRadius * cos(i), a_fRadius * sin(i), 0), vector3(a_fRadius * cos(i + 1), a_fRadius * sin(i + 1), 0), vector3(0, 0, 0));
+		if (i != a_nSubdivisions - 1)
+			AddTri(vector3(a_fRadius * cos(i * intervals), a_fRadius * sin(i * intervals), 0), vector3(a_fRadius * cos((i + 1) * intervals), a_fRadius * sin((i + 1) * intervals), 0), vector3(0, 0, a_fHeight));
+		else
+			AddTri(vector3(a_fRadius * cos(i * intervals), a_fRadius * sin(i * intervals), 0), vector3(a_fRadius * cos(0), a_fRadius * sin(0), 0), vector3(0, 0, a_fHeight));
+	}
+
+	for (int i = a_nSubdivisions; i > 0; i--)
+	{
+		if ( i != 1)
+			AddTri(vector3(a_fRadius * cos(i * intervals), a_fRadius * sin(i * intervals), 0), vector3(a_fRadius * cos((i - 1) * intervals), a_fRadius * sin((i - 1) * intervals), 0), vector3(0, 0, 0));
+		else
+			AddTri(vector3(a_fRadius * cos(i * intervals), a_fRadius * sin(i * intervals), 0), vector3(a_fRadius * cos(a_nSubdivisions * intervals), a_fRadius * sin(a_nSubdivisions * intervals), 0), vector3(0, 0, 0));
+
 	}
 
 	// -------------------------------
