@@ -276,19 +276,10 @@ void MyMesh::GenerateCone(float a_fRadius, float a_fHeight, int a_nSubdivisions,
 	Release();
 	Init();
 
-	std::vector<vector3> vec;
-
 	// Replace this with your code
 	float intervals =  (360 / a_nSubdivisions) * (3.14 / 180);
 
-	for (int i = 0; i < a_nSubdivisions; i++)
-	{
-		vec.push_back(vector3(a_nSubdivisions * i, 0, 0));
-	}
-
-	vec.push_back(vector3(a_fRadius, a_fHeight, 0));
-
-	for (int i = 0; i < a_nSubdivisions; i++)
+	for (int i = 0; i < a_nSubdivisions; i++)	// the cone part
 	{
 		if (i != a_nSubdivisions - 1)
 			AddTri(vector3(a_fRadius * cos(i * intervals), a_fRadius * sin(i * intervals), 0), vector3(a_fRadius * cos((i + 1) * intervals), a_fRadius * sin((i + 1) * intervals), 0), vector3(0, 0, a_fHeight));
@@ -296,13 +287,12 @@ void MyMesh::GenerateCone(float a_fRadius, float a_fHeight, int a_nSubdivisions,
 			AddTri(vector3(a_fRadius * cos(i * intervals), a_fRadius * sin(i * intervals), 0), vector3(a_fRadius * cos(0), a_fRadius * sin(0), 0), vector3(0, 0, a_fHeight));
 	}
 
-	for (int i = a_nSubdivisions; i > 0; i--)
+	for (int i = a_nSubdivisions; i > 0; i--)		// the base drawn backwards so it would show
 	{
 		if ( i != 1)
 			AddTri(vector3(a_fRadius * cos(i * intervals), a_fRadius * sin(i * intervals), 0), vector3(a_fRadius * cos((i - 1) * intervals), a_fRadius * sin((i - 1) * intervals), 0), vector3(0, 0, 0));
 		else
 			AddTri(vector3(a_fRadius * cos(i * intervals), a_fRadius * sin(i * intervals), 0), vector3(a_fRadius * cos(a_nSubdivisions * intervals), a_fRadius * sin(a_nSubdivisions * intervals), 0), vector3(0, 0, 0));
-
 	}
 
 	// -------------------------------
@@ -328,7 +318,27 @@ void MyMesh::GenerateCylinder(float a_fRadius, float a_fHeight, int a_nSubdivisi
 	Init();
 
 	// Replace this with your code
-	GenerateCube(a_fRadius * 2.0f, a_v3Color);
+	float intervals = (360 / a_nSubdivisions) * (3.14 / 180);
+
+	for (int i = 0; i < a_nSubdivisions; i++)		
+	{
+		AddTri(vector3(a_fRadius * cos(i * intervals), a_fRadius * sin(i * intervals), 0), vector3(a_fRadius * cos((i + 1) * intervals), a_fRadius * sin((i + 1) * intervals), 0), vector3(a_fRadius * cos(i * intervals), a_fRadius * sin(i * intervals), a_fHeight));
+		AddTri(vector3(a_fRadius * cos((i + 1) * intervals), a_fRadius * sin((i + 1) * intervals), a_fHeight), vector3(a_fRadius * cos(i * intervals), a_fRadius * sin(i * intervals), a_fHeight), vector3(a_fRadius * cos((i + 1) * intervals), a_fRadius * sin((i + 1) * intervals), 0));
+	}
+
+	for (int i = a_nSubdivisions; i > 0; i--)		
+	{
+		if (i != 1)
+		{
+			AddTri(vector3(a_fRadius * cos((i - 1) * intervals), a_fRadius * sin((i - 1) * intervals), a_fHeight), vector3(a_fRadius * cos(i * intervals), a_fRadius * sin(i * intervals), a_fHeight), vector3(0, 0, a_fHeight));
+			AddTri(vector3(a_fRadius * cos(i * intervals), a_fRadius * sin(i * intervals), 0), vector3(a_fRadius * cos((i - 1) * intervals), a_fRadius * sin((i - 1) * intervals), 0), vector3(0, 0, 0));
+		}
+		else
+		{
+			AddTri(vector3(a_fRadius * cos(a_nSubdivisions * intervals), a_fRadius * sin(a_nSubdivisions * intervals), a_fHeight), vector3(a_fRadius * cos(i * intervals), a_fRadius * sin(i * intervals), a_fHeight), vector3(0, 0, a_fHeight));
+			AddTri(vector3(a_fRadius * cos(i * intervals), a_fRadius * sin(i * intervals), 0), vector3(a_fRadius * cos(a_nSubdivisions * intervals), a_fRadius * sin(a_nSubdivisions * intervals), 0), vector3(0, 0, 0));
+		}
+	}	
 	// -------------------------------
 
 	// Adding information about color
