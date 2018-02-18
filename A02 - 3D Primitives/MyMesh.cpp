@@ -368,7 +368,39 @@ void MyMesh::GenerateTube(float a_fOuterRadius, float a_fInnerRadius, float a_fH
 	Init();
 
 	// Replace this with your code
-	GenerateCube(a_fOuterRadius * 2.0f, a_v3Color);
+	float intervals = (360 / a_nSubdivisions) * (3.14 / 180);
+
+	for (int i = 0; i < a_nSubdivisions; i++)
+	{
+		if (i != a_nSubdivisions - 1)
+		{
+			// inner radius
+			AddTri(vector3(a_fInnerRadius * cos((i + 1) * intervals), a_fInnerRadius * sin((i + 1) * intervals), 0), vector3(a_fInnerRadius * cos(i * intervals), a_fInnerRadius * sin(i * intervals), 0), vector3(a_fInnerRadius * cos(i * intervals), a_fInnerRadius * sin(i * intervals), a_fHeight));
+			AddTri(vector3(a_fInnerRadius * cos(i * intervals), a_fInnerRadius * sin(i * intervals), a_fHeight), vector3(a_fInnerRadius * cos((i + 1) * intervals), a_fInnerRadius * sin((i + 1) * intervals), a_fHeight), vector3(a_fInnerRadius * cos((i + 1) * intervals), a_fInnerRadius * sin((i + 1) * intervals), 0));
+			AddTri(vector3(a_fOuterRadius * cos(i * intervals), a_fOuterRadius * sin(i * intervals), 0), vector3(a_fInnerRadius * cos(i * intervals), a_fInnerRadius * sin(i * intervals), 0), vector3(a_fOuterRadius * cos((i + 1) * intervals), a_fOuterRadius * sin((i + 1) * intervals), 0));
+			AddTri(vector3(a_fInnerRadius * cos((i + 1) * intervals), a_fInnerRadius * sin((i + 1) * intervals), 0), vector3(a_fOuterRadius * cos((i + 1) * intervals), a_fOuterRadius * sin((i + 1) * intervals), 0), vector3(a_fInnerRadius * cos(i * intervals), a_fInnerRadius * sin(i * intervals), 0));
+
+			// outer radius
+			AddTri(vector3(a_fOuterRadius * cos(i * intervals), a_fOuterRadius * sin(i * intervals), 0), vector3(a_fOuterRadius * cos((i + 1) * intervals), a_fOuterRadius * sin((i + 1) * intervals), 0), vector3(a_fOuterRadius * cos(i * intervals), a_fOuterRadius * sin(i * intervals), a_fHeight));
+			AddTri(vector3(a_fOuterRadius * cos((i + 1) * intervals), a_fOuterRadius * sin((i + 1) * intervals), a_fHeight), vector3(a_fOuterRadius * cos(i * intervals), a_fOuterRadius * sin(i * intervals), a_fHeight), vector3(a_fOuterRadius * cos((i + 1) * intervals), a_fOuterRadius * sin((i + 1) * intervals), 0));
+			AddTri(vector3(a_fOuterRadius * cos((i + 1) * intervals), a_fOuterRadius * sin((i + 1) * intervals), a_fHeight), vector3(a_fInnerRadius * cos((i + 1) * intervals), a_fInnerRadius * sin((i + 1) * intervals), a_fHeight), vector3(a_fOuterRadius * cos(i * intervals), a_fOuterRadius * sin(i * intervals), a_fHeight));
+			AddTri(vector3(a_fInnerRadius * cos(i * intervals), a_fInnerRadius * sin(i * intervals), a_fHeight), vector3(a_fOuterRadius * cos(i * intervals), a_fOuterRadius * sin(i * intervals), a_fHeight), vector3(a_fInnerRadius * cos((i + 1) * intervals), a_fInnerRadius * sin((i + 1) * intervals), a_fHeight));
+		}
+		else
+		{
+			// inner radius
+			AddTri(vector3(a_fInnerRadius * cos(0), a_fInnerRadius * sin(0), 0), vector3(a_fInnerRadius * cos(i * intervals), a_fInnerRadius * sin(i * intervals), 0), vector3(a_fInnerRadius * cos(i * intervals), a_fInnerRadius * sin(i * intervals), a_fHeight));
+			AddTri(vector3(a_fInnerRadius * cos(i * intervals), a_fInnerRadius * sin(i * intervals), a_fHeight), vector3(a_fInnerRadius * cos(0), a_fInnerRadius * sin(0), a_fHeight), vector3(a_fInnerRadius * cos(0), a_fInnerRadius * sin(0), 0));
+			AddTri(vector3(a_fOuterRadius * cos(i * intervals), a_fOuterRadius * sin(i * intervals), 0), vector3(a_fInnerRadius * cos(i * intervals), a_fInnerRadius * sin(i * intervals), 0), vector3(a_fOuterRadius * cos(0), a_fOuterRadius * sin(0), 0));
+			AddTri(vector3(a_fInnerRadius * cos(0), a_fInnerRadius * sin(0), 0), vector3(a_fOuterRadius * cos(0), a_fOuterRadius * sin(0), 0), vector3(a_fInnerRadius * cos(i * intervals), a_fInnerRadius * sin(i * intervals), 0));
+
+			// outer radius
+			AddTri(vector3(a_fOuterRadius * cos(i * intervals), a_fOuterRadius * sin(i * intervals), 0), vector3(a_fOuterRadius * cos(0), a_fOuterRadius * sin(0), 0), vector3(a_fOuterRadius * cos(i * intervals), a_fOuterRadius * sin(i * intervals), a_fHeight));
+			AddTri(vector3(a_fOuterRadius * cos(0), a_fOuterRadius * sin(0), a_fHeight), vector3(a_fOuterRadius * cos(i * intervals), a_fOuterRadius * sin(i * intervals), a_fHeight), vector3(a_fOuterRadius * cos(0), a_fOuterRadius * sin(0), 0));
+			AddTri(vector3(a_fOuterRadius * cos(0), a_fOuterRadius * sin(0), a_fHeight), vector3(a_fInnerRadius * cos(0), a_fInnerRadius * sin(0), a_fHeight), vector3(a_fOuterRadius * cos(i * intervals), a_fOuterRadius * sin(i * intervals), a_fHeight));
+			AddTri(vector3(a_fInnerRadius * cos(i * intervals), a_fInnerRadius * sin(i * intervals), a_fHeight), vector3(a_fOuterRadius * cos(i * intervals), a_fOuterRadius * sin(i * intervals), a_fHeight), vector3(a_fInnerRadius * cos(0), a_fInnerRadius * sin(0), a_fHeight));
+		}
+	}
 	// -------------------------------
 
 	// Adding information about color
