@@ -469,20 +469,22 @@ void MyMesh::GenerateSphere(float a_fRadius, int a_nSubdivisions, vector3 a_v3Co
 
 	for (int i = 0; i < a_nSubdivisions; i++)
 	{
+		// bottom dome
 		AddTri(vector3((a_fRadius * cos(i * intervals)) * 1.33f, (a_fRadius * sin(i * intervals)) * 1.33f, 0), vector3((a_fRadius * cos((i + 1) * intervals)) * 1.33f, (a_fRadius * sin((i + 1) * intervals)) * 1.33f, 0), vector3(a_fRadius * cos(i * intervals), a_fRadius * sin(i * intervals), height/3));
 		AddTri(vector3(a_fRadius * cos((i + 1) * intervals), a_fRadius * sin((i + 1) * intervals), height/3), vector3(a_fRadius * cos(i * intervals), a_fRadius * sin(i * intervals), height/3), vector3((a_fRadius * cos((i + 1) * intervals)) * 1.33f, (a_fRadius * sin((i + 1) * intervals)) * 1.33f, 0));
 
 		AddTri(vector3(a_fRadius * cos(i * intervals), a_fRadius * sin(i * intervals), height / 3), vector3(a_fRadius * cos((i + 1) * intervals), a_fRadius * sin((i + 1) * intervals), height / 3), vector3((a_fRadius * cos(i * intervals)) / 3, (a_fRadius * sin(i * intervals)) / 3, 2 * height / 3));
 		AddTri(vector3((a_fRadius * cos((i + 1) * intervals))/3, (a_fRadius * sin((i + 1) * intervals))/3, 2 * height / 3), vector3((a_fRadius * cos(i * intervals))/3, (a_fRadius * sin(i * intervals))/3, 2 * height / 3), vector3(a_fRadius * cos((i + 1) * intervals), a_fRadius * sin((i + 1) * intervals), height / 3));
 
+		// top dome
 		AddTri(vector3((a_fRadius * cos(i * intervals)) * 1.33f, (a_fRadius * sin(i * intervals)) * 1.33f, -height / 3), vector3((a_fRadius * cos((i + 1) * intervals)) * 1.33f, (a_fRadius * sin((i + 1) * intervals)) * 1.33f, -height / 3), vector3((a_fRadius * cos(i * intervals)) * 1.33f, (a_fRadius * sin(i * intervals)) * 1.33f, 0));
 		AddTri(vector3((a_fRadius * cos((i + 1) * intervals)) * 1.33f, (a_fRadius * sin((i + 1) * intervals)) * 1.33f, 0), vector3((a_fRadius * cos(i * intervals)) * 1.33f, (a_fRadius * sin(i * intervals)) * 1.33f, 0), vector3((a_fRadius * cos((i + 1) * intervals)) * 1.33f, (a_fRadius * sin((i + 1) * intervals)) * 1.33f, -height / 3));
 
 		AddTri(vector3((a_fRadius * cos((i + 1) * intervals)) * 1.33f, (a_fRadius * sin((i + 1) * intervals)) * 1.33f, -height / 3), vector3((a_fRadius * cos(i * intervals)) * 1.33f, (a_fRadius * sin(i * intervals)) * 1.33f, -height / 3), vector3((a_fRadius * cos(i * intervals)) / 3, (a_fRadius * sin(i * intervals)) / 3, -2 * height / 3));
 		AddTri(vector3((a_fRadius * cos(i * intervals)) / 3, (a_fRadius * sin(i * intervals)) / 3, -2 * height / 3), vector3((a_fRadius * cos((i + 1) * intervals)) / 3, (a_fRadius * sin((i + 1) * intervals)) / 3, -2 * height / 3), vector3((a_fRadius * cos((i + 1) * intervals)) * 1.33f, (a_fRadius * sin((i + 1) * intervals)) * 1.33f, -height / 3));
 
-		AddTri(vector3(0, 0, -a_fRadius), vector3((a_fRadius * cos((i + 1) * intervals)) / 3, (a_fRadius * sin((i + 1) * intervals)) / 3, -2 * height / 3), vector3((a_fRadius * cos(i * intervals)) / 3, (a_fRadius * sin(i * intervals)) / 3, -2 * height / 3));
-		AddTri(vector3(0, 0, a_fRadius), vector3((a_fRadius * cos(i * intervals)) / 3, (a_fRadius * sin(i * intervals)) / 3, 2 * height / 3), vector3((a_fRadius * cos((i + 1) * intervals)) / 3, (a_fRadius * sin((i + 1) * intervals)) / 3, 2 * height / 3));
+		AddTri(vector3(0, 0, -a_fRadius), vector3((a_fRadius * cos((i + 1) * intervals)) / 3, (a_fRadius * sin((i + 1) * intervals)) / 3, -2 * height / 3), vector3((a_fRadius * cos(i * intervals)) / 3, (a_fRadius * sin(i * intervals)) / 3, -2 * height / 3));		// top cap
+		AddTri(vector3(0, 0, a_fRadius), vector3((a_fRadius * cos(i * intervals)) / 3, (a_fRadius * sin(i * intervals)) / 3, 2 * height / 3), vector3((a_fRadius * cos((i + 1) * intervals)) / 3, (a_fRadius * sin((i + 1) * intervals)) / 3, 2 * height / 3));		// bottom cap
 
 		//AddTri(vector3(a_fRadius * cos(i * intervals), a_fRadius * sin(i * intervals), height * 1.33f), vector3((a_fRadius * cos((i + 1) * intervals)) / 3, (a_fRadius * sin((i + 1) * intervals)) / 3, 0), vector3((a_fRadius * cos(i * intervals)) / 3, (a_fRadius * sin(i * intervals)) / 3, 0));
 		//AddTri(vector3(a_fRadius * cos((i + 1) * intervals), a_fRadius * sin((i + 1) * intervals), height / 3), vector3(a_fRadius * cos(i * intervals), a_fRadius * sin(i * intervals), height / 3), vector3((a_fRadius * cos((i + 1) * intervals)) * 1.33f, (a_fRadius * sin((i + 1) * intervals)) * 1.33f, 0));
