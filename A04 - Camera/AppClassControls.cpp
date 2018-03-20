@@ -67,12 +67,6 @@ void Application::ProcessMouseScroll(sf::Event a_event)
 //Keyboard
 void Application::ProcessKeyPressed(sf::Event a_event)
 {
-	switch (a_event.key.code)
-	{
-	default: break;
-	case sf::Keyboard::Space:
-		break;
-	}
 	//gui
 	gui.io.KeysDown[a_event.key.code] = true;
 	gui.io.KeyCtrl = a_event.key.control;
@@ -386,6 +380,20 @@ void Application::ProcessKeyboard(void)
 	if (fMultiplier)
 		fSpeed *= 5.0f;
 #pragma endregion
+
+	vector3 v3Pos = m_pCamera->GetPosition();
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+		m_pCamera->SetPosition(v3Pos + vector3(0.0f, 0.0f, 0.05f));
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+		m_pCamera->SetPosition(v3Pos + vector3(0.05f, 0.0f, 0.0f));
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		m_pCamera->SetPosition(v3Pos - vector3(0.0f, 0.0f, 0.05f));
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		m_pCamera->SetPosition(v3Pos - vector3(0.05f, 0.0f, 0.0f));
 }
 //Joystick
 void Application::ProcessJoystick(void)
