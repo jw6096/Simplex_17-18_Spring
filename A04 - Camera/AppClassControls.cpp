@@ -384,25 +384,34 @@ void Application::ProcessKeyboard(void)
 #pragma endregion
 
 	vector3 v3Pos = m_pCamera->GetPosition();
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-		m_pCamera->SetPosition(v3Pos + vector3(0.0f, 0.0f, 0.05f));
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-	{
-		m_pCamera->SetUp(AXIS_Y);
-		m_pCamera->SetTarget(v3Pos + vector3(0.1f, 0.0f, 0.0f));
-		m_pCamera->SetPosition(v3Pos + vector3(0.05f, 0.0f, 0.0f));
-	}
+	vector3 target = v3Pos + vector3(0.0f, 0.0f, -30.0f);
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-		m_pCamera->SetPosition(v3Pos - vector3(0.0f, 0.0f, 0.05f));
+	{
+		m_pCamera->SetPosition(v3Pos + vector3(0.0f, 0.0f, 0.1f));
+		m_pCamera->SetTarget(target);
+		m_pCamera->SetUp(AXIS_Y);
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+	{
+		m_pCamera->SetPosition(vector3(v3Pos - vector3(0.0f, 0.0f, 0.1f)));
+		m_pCamera->SetTarget(target);
+		m_pCamera->SetUp(AXIS_Y);
+	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
+		m_pCamera->SetPosition(vector3(v3Pos + vector3(0.1f, 0.0f, 0.0f)));
+		m_pCamera->SetTarget(target);
 		m_pCamera->SetUp(AXIS_Y);
-		m_pCamera->SetTarget(v3Pos + vector3(0.1f, 0.0f, 0.0f));
-		m_pCamera->SetPosition(v3Pos - vector3(0.05f, 0.0f, 0.0f));
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	{
+		m_pCamera->SetPosition(vector3(v3Pos - vector3(0.1f, 0.0f, 0.0f)));
+		m_pCamera->SetTarget(target);
+		m_pCamera->SetUp(AXIS_Y);
 	}
 }
 //Joystick
