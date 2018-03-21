@@ -1,5 +1,6 @@
 #include "AppClass.h"
 using namespace Simplex;
+
 //Mouse
 void Application::ProcessMouseMovement(sf::Event a_event)
 {
@@ -341,6 +342,7 @@ void Application::CameraRotation(float a_fSpeed)
 	float fAngleX = 0.0f;
 	float fAngleY = 0.0f;
 	float fDeltaMouse = 0.0f;
+
 	if (MouseX < CenterX)
 	{
 		fDeltaMouse = static_cast<float>(CenterX - MouseX);
@@ -387,13 +389,21 @@ void Application::ProcessKeyboard(void)
 		m_pCamera->SetPosition(v3Pos + vector3(0.0f, 0.0f, 0.05f));
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	{
+		m_pCamera->SetUp(AXIS_Y);
+		m_pCamera->SetTarget(v3Pos + vector3(0.1f, 0.0f, 0.0f));
 		m_pCamera->SetPosition(v3Pos + vector3(0.05f, 0.0f, 0.0f));
+	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 		m_pCamera->SetPosition(v3Pos - vector3(0.0f, 0.0f, 0.05f));
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	{
+		m_pCamera->SetUp(AXIS_Y);
+		m_pCamera->SetTarget(v3Pos + vector3(0.1f, 0.0f, 0.0f));
 		m_pCamera->SetPosition(v3Pos - vector3(0.05f, 0.0f, 0.0f));
+	}
 }
 //Joystick
 void Application::ProcessJoystick(void)
