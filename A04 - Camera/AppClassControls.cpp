@@ -347,25 +347,33 @@ void Application::CameraRotation(float a_fSpeed)
 	{
 		fDeltaMouse = static_cast<float>(CenterX - MouseX);
 		fAngleY += fDeltaMouse * a_fSpeed;
+		m_pCamera->xRotation -= 0.02f;
+		m_pCamera->zRotation -= 0.02f;
 	}
 	else if (MouseX > CenterX)
 	{
 		fDeltaMouse = static_cast<float>(MouseX - CenterX);
 		fAngleY -= fDeltaMouse * a_fSpeed;
+		m_pCamera->xRotation += 0.02f;
+		m_pCamera->zRotation += 0.02f;
 	}
 
 	if (MouseY < CenterY)
 	{
 		fDeltaMouse = static_cast<float>(CenterY - MouseY);
 		fAngleX -= fDeltaMouse * a_fSpeed;
+		m_pCamera->yRotation += 0.02f;
+		m_pCamera->zRotation += 0.02f;
 	}
 	else if (MouseY > CenterY)
 	{
 		fDeltaMouse = static_cast<float>(MouseY - CenterY);
 		fAngleX += fDeltaMouse * a_fSpeed;
+		m_pCamera->yRotation -= 0.02f;
+		m_pCamera->zRotation -= 0.02f;
 	}
 	//Change the Yaw and the Pitch of the camera
-	SetCursorPos(CenterX, CenterY);//Position the mouse in the center
+	SetCursorPos(CenterX, CenterY);    //Position the mouse in the center	
 }
 //Keyboard
 void Application::ProcessKeyboard(void)
@@ -384,18 +392,21 @@ void Application::ProcessKeyboard(void)
 #pragma endregion
 
 	vector3 v3Pos = m_pCamera->GetPosition();
-	vector3 target = v3Pos + vector3(0.0f, 0.0f, -30.0f);
+	vector3 target = v3Pos + vector3(cos(m_pCamera->xRotation), sin(m_pCamera->yRotation), sin(m_pCamera->zRotation));
+	vector3 norm = glm::normalize(v3Pos - target);
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
-		m_pCamera->SetPosition(v3Pos + vector3(0.0f, 0.0f, 0.1f));
+		//m_pCamera->SetPosition(v3Pos + vector3(0.0f, 0.0f, 0.1f));
+		m_pCamera->SetPosition(v3Pos + (norm * fSpeed));
 		m_pCamera->SetTarget(target);
 		m_pCamera->SetUp(AXIS_Y);
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
-		m_pCamera->SetPosition(vector3(v3Pos - vector3(0.0f, 0.0f, 0.1f)));
+		m_pCamera->SetPosition(v3Pos - (norm * fSpeed));
+		//m_pCamera->SetPosition(vector3(v3Pos - vector3(0.0f, 0.0f, 0.1f)));
 		m_pCamera->SetTarget(target);
 		m_pCamera->SetUp(AXIS_Y);
 	}
