@@ -152,6 +152,7 @@ void Application::ProcessKeyReleased(sf::Event a_event)
 		m_bModifier = false;
 	}
 
+
 	//gui
 	gui.io.KeysDown[a_event.key.code] = false;
 	gui.io.KeyCtrl = a_event.key.control;

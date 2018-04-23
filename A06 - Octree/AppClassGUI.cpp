@@ -56,6 +56,7 @@ void Application::DrawGUI(void)
 			ImGui::Text("	  +: Decrement Octree subdivision\n");
 			ImGui::Separator();
 			ImGui::TextColored(ImColor(255, 255, 0), "Octree\n");
+			ImGui::Text(" The framerate has improved drastically with my credible skills with octree!");
 		}
 		ImGui::End();
 	}
